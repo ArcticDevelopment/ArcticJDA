@@ -10,9 +10,9 @@ public abstract class ADiscordCommand {
     public String command;
     public List<String> aliases;
 
-    public ADiscordCommand(String command, String... args) {
+    public ADiscordCommand(String command, String... aliases) {
         this.command = command;
-        this.aliases = Arrays.asList(args);
+        this.aliases = Arrays.asList(aliases);
     }
 
     public abstract void execute(GuildMessageReceivedEvent event, List<String> args);
