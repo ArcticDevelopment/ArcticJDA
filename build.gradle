@@ -10,9 +10,20 @@ repositories {
     jcenter()
 }
 
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
+
 dependencies {
-    compile 'net.dv8tion:JDA:4.2.0_232'
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
-    compile group: 'org.json', name: 'json', version: '20201115'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
+    extraLibs 'net.dv8tion:JDA:4.2.0_232'
+    extraLibs group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
+    extraLibs group: 'org.json', name: 'json', version: '20201115'
+    extraLibs group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.29'
+}
+
+jar {
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
